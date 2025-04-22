@@ -18,3 +18,23 @@ z sound
 s sound
 sh sound
 emphatic s sound
+
+Arabic Alphabet (Part 3)
+------------------------
+emphatic d sound
+emphatic t sound
+emphatic th sound
+voiced pharyngeal sound
+gh sound (like French r)
+f sound
+deep k sound
+
+Arabic Alphabet (Part 4)
+------------------------
+k sound
+l sound
+m sound
+n sound
+h sound
+w sound
+y sound

@@ -511,6 +511,80 @@ day7_phrases = {
             "transliteration": "sad",
             "en": "emphatic s sound"
         }
+    ],
+    "Arabic Alphabet (Part 3)": [
+        {
+            "ar": "ض",
+            "transliteration": "dad",
+            "en": "emphatic d sound"
+        },
+        {
+            "ar": "ط",
+            "transliteration": "ta",
+            "en": "emphatic t sound"
+        },
+        {
+            "ar": "ظ",
+            "transliteration": "dha",
+            "en": "emphatic th sound"
+        },
+        {
+            "ar": "ع",
+            "transliteration": "ayn",
+            "en": "voiced pharyngeal sound"
+        },
+        {
+            "ar": "غ",
+            "transliteration": "ghayn",
+            "en": "gh sound (like French r)"
+        },
+        {
+            "ar": "ف",
+            "transliteration": "fa",
+            "en": "f sound"
+        },
+        {
+            "ar": "ق",
+            "transliteration": "qaf",
+            "en": "deep k sound"
+        }
+    ],
+    "Arabic Alphabet (Part 4)": [
+        {
+            "ar": "ك",
+            "transliteration": "kaf",
+            "en": "k sound"
+        },
+        {
+            "ar": "ل",
+            "transliteration": "lam",
+            "en": "l sound"
+        },
+        {
+            "ar": "م",
+            "transliteration": "mim",
+            "en": "m sound"
+        },
+        {
+            "ar": "ن",
+            "transliteration": "nun",
+            "en": "n sound"
+        },
+        {
+            "ar": "ه",
+            "transliteration": "ha",
+            "en": "h sound"
+        },
+        {
+            "ar": "و",
+            "transliteration": "waw",
+            "en": "w sound"
+        },
+        {
+            "ar": "ي",
+            "transliteration": "ya",
+            "en": "y sound"
+        }
     ]
 }
 

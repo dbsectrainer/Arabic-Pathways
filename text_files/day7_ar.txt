@@ -18,3 +18,23 @@ Arabic Alphabet (Part 2)
 س
 ش
 ص
+
+Arabic Alphabet (Part 3)
+------------------------
+ض
+ط
+ظ
+ع
+غ
+ف
+ق
+
+Arabic Alphabet (Part 4)
+------------------------
+ك
+ل
+م
+ن
+ه
+و
+ي
