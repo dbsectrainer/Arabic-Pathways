@@ -1,0 +1,16 @@
+
+Shopping Dialogue 1
+-------------------
+az-zabun: kam si'r hadha al-qamis?
+al-ba'i': mi'atan dirham
+az-zabun: ghali jiddan, hal yumkin takhfid as-si'r?
+al-ba'i': hasanan, mi'a wa thamanun dirham
+az-zabun: hasanan, sa'akhudhuhu
+
+Shopping Dialogue 2
+-------------------
+az-zabun: ayna ghurfat al-qiyas?
+al-ba'i': hunak, 'ala al-yamin
+az-zabun: hal ladaykum maqas akbar?
+al-ba'i': da'ni atahaqqaq. na'am, hadha maqas XL
+az-zabun: shukran, sa'ujarribuh

@@ -1,0 +1,16 @@
+
+Travel Dialogue 1
+-----------------
+Tourist: Excuse me, how do I get to Burj Khalifa?
+Local: You can take the metro to Burj Khalifa/Dubai Mall station
+Tourist: How long does it take?
+Local: About twenty minutes
+Tourist: Thank you very much for your help
+
+Travel Dialogue 2
+-----------------
+Tourist: What time does the museum close?
+Staff: We close at 8 PM
+Tourist: How much is the admission fee?
+Staff: 50 dirhams for adults, half price for students
+Tourist: I'm a student, here's my university ID

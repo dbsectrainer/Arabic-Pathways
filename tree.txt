@@ -1,0 +1,30 @@
+.
+├── README.md
+├── arabic_phrases_days_01_07.py
+├── arabic_phrases_days_08_14.py
+├── arabic_phrases_days_15_22.py
+├── arabic_phrases_days_23_30.py
+├── arabic_phrases_days_31_40.py
+├── arabic_phrases_supplementary.py
+├── audio_files
+│   └── supplementary
+├── css
+│   ├── native-speaker.css
+│   ├── styles.css
+│   └── video-player.css
+├── day.html
+├── index.html
+├── js
+│   ├── script.js
+│   ├── video-loader-supplementary.js
+│   └── video-loader.js
+├── requirements.txt
+├── supplementary.html
+├── text_files
+│   └── supplementary
+├── tree.txt
+├── video_search.py
+├── videos.json
+└── videos_supplementary.json
+
+7 directories, 21 files

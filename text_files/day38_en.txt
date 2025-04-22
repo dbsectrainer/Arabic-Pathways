@@ -1,0 +1,16 @@
+
+Shopping Dialogue 1
+-------------------
+Customer: How much is this shirt?
+Seller: 200 dirhams
+Customer: That's too expensive. Can you reduce the price?
+Seller: OK, 180 dirhams
+Customer: OK, I'll take it
+
+Shopping Dialogue 2
+-------------------
+Customer: Where is the fitting room?
+Seller: There, on the right
+Customer: Do you have a larger size?
+Seller: Let me check. Yes, here's size XL
+Customer: Thanks, I'll try it on

@@ -1,0 +1,19 @@
+
+Food Items
+----------
+rice
+noodles
+chicken
+beef
+lamb
+vegetables
+fruit
+
+Restaurant Phrases
+------------------
+menu
+I'd like to order
+waiter
+check please
+Is this delicious?
+I want a glass of water

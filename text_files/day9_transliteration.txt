@@ -1,0 +1,17 @@
+
+Transportation Types
+--------------------
+hafila
+metro
+taxi
+qitar
+ta'ira
+darraja
+
+Transportation Phrases
+----------------------
+kayfa asil ila al-matar?
+ayna mawqif al-hafila?
+min fadlik khudhni ila hadha al-'unwan
+kam thaman al-tadhkira?
+mata ta'ti al-hafila al-taliya?

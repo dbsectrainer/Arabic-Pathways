@@ -1,0 +1,16 @@
+
+Restaurant Dialogue 1
+---------------------
+Waiter: Welcome, how many people?
+Customer: Two people, please
+Waiter: Please follow me
+Customer: Do you have a menu?
+Waiter: Here you are, take your time
+
+Restaurant Dialogue 2
+---------------------
+Customer: I'd like to order
+Waiter: What would you like to order?
+Customer: I want a chicken shawarma and salad
+Waiter: OK, anything else?
+Customer: Yes, a glass of orange juice

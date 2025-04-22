@@ -1,0 +1,16 @@
+
+Restaurant Dialogue 1
+---------------------
+an-nadil: ahlan wa sahlan, kam shakhs?
+az-zabun: shakhsan, min fadlik
+an-nadil: tafaddalu ma'i
+az-zabun: hal ladaykum qa'imat at-ta'am?
+an-nadil: tafaddal, khudh waqtak
+
+Restaurant Dialogue 2
+---------------------
+az-zabun: urid an atlub
+an-nadil: madha tuhibb an tatlub?
+az-zabun: urid shawarma dajaj wa salata
+an-nadil: hasanan, hal turid shay'an akhar?
+az-zabun: na'am, kub 'asir burtuqal
