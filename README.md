@@ -1,6 +1,7 @@
 # Arabic Pathways
 
-## Overview
+[![CI](https://github.com/dbsectrainer/Arabic-Pathways/actions/workflows/python-ci.yml/badge.svg)](https://github.com/dbsectrainer/Arabic-Pathways/actions/workflows/python-ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 A focused Modern Standard Arabic learning platform designed to take learners from foundational script and pronunciation to advanced professional fluency over a 40-day journey. The program offers modular daily lessons through interactive audio‑visual materials, YouTube video demonstrations, real‑world conversation practice, and culturally relevant topics—ideal for travelers, professionals, and global citizens.
 
@@ -168,3 +169,24 @@ Uses localStorage to save:
 - Completed lessons and last visited day
 - Audio playback preferences (e.g., speed, loop)
 - Custom notes and bookmarks
+
+## Features
+- 40 days of Arabic phrases with audio and transliteration
+- Supplementary materials
+- Video and audio search
+
+## Getting Started
+1. Clone the repo
+2. Install requirements: `pip install -r requirements.txt`
+3. Run scripts as needed
+
+## Running Tests
+```bash
+pytest
+```
+
+## Contributing
+See [CONTRIBUTING.md](CONTRIBUTING.md)
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
