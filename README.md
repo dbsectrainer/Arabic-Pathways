@@ -5,13 +5,15 @@
 
 A focused Modern Standard Arabic learning platform designed to take learners from foundational script and pronunciation to advanced professional fluency over a 40-day journey. The program offers modular daily lessons through interactive audio‑visual materials, YouTube video demonstrations, real‑world conversation practice, and culturally relevant topics—ideal for travelers, professionals, and global citizens.
 
+**Now available as a Flutter mobile application!** 📱
+
 ## Technical Skills Demonstrated
 
-### Web Development
-- Interactive, responsive web interface using HTML5, CSS3, and modern JavaScript
-- Dynamic content updates and micro‑interactions for enhanced user engagement
-- YouTube API integration for embedded instructional videos
-- Mobile‑first responsive design using media queries and grid layouts
+### Flutter/Mobile Development
+- Cross-platform mobile application (iOS & Android) using Flutter & Dart
+- Native performance with smooth animations and transitions
+- Offline-first architecture with local asset management
+- Material Design UI with custom theming and RTL support
 
 ### Python Development
 - Automated content generation scripts for lesson materials
@@ -42,23 +44,25 @@ A focused Modern Standard Arabic learning platform designed to take learners fro
 
 ## Project Structure
 
-- `index.html`: Main dashboard with daily progress overview
-- `day.html`: Daily lesson interface with audio, text, and exercises
-- `supplementary.html`: Additional learning resources and practice materials
-- `css/`: Stylesheets for the web interface
-  - `styles.css`: Main stylesheet
-  - `video-player.css`: Styles for the YouTube video player
-  - `native-speaker.css`: Styles for native speaker content
-- `js/`: JavaScript functionality and interactive features
-  - `script.js`: Core application logic
-  - `video-loader.js`: Loads YouTube videos for lessons
-  - `video-loader-supplementary.js`: Loads supplementary YouTube videos
-- `audio_files/`:
-  - Supplementary audio files in `supplementary/`
-- `text_files/`:
-  - Supplementary text files in `supplementary/`
+### Flutter Application
+- `lib/`: Flutter/Dart source code
+  - `main.dart`: Application entry point
+  - `models/`: Data models (LessonDay, SupplementaryContent, VideoInfo)
+  - `screens/`: UI screens (Dashboard, Lesson, Supplementary)
+  - `services/`: Business logic (ContentService, ProgressService)
+  - `utils/`: Utilities (AppTheme, constants)
+- `pubspec.yaml`: Flutter project configuration and dependencies
+- `analysis_options.yaml`: Dart/Flutter linting rules
+
+### Assets & Content
+- `audio_files/`: MP3 audio files for lessons
+  - `supplementary/`: Supplementary audio files
+- `text_files/`: Lesson content in three languages
+  - `supplementary/`: Supplementary text files
 - `videos.json`: YouTube video IDs for each daily lesson
 - `videos_supplementary.json`: IDs for supplementary videos
+
+### Content Generation (Python)
 - Python content generation scripts:
   - `arabic_phrases_days_01_07.py`: Phrases for days 1-7
   - `arabic_phrases_days_08_14.py`: Phrases for days 8-14
@@ -68,6 +72,11 @@ A focused Modern Standard Arabic learning platform designed to take learners fro
   - `arabic_phrases_supplementary.py`: Supplementary phrases
   - `video_search.py`: Tool for searching relevant videos
 - `requirements.txt`: Python package dependencies
+
+### Legacy Web Version
+- `index.html`, `day.html`, `supplementary.html`: Original web interface
+- `css/`: Web stylesheets
+- `js/`: Web JavaScript files
 
 ## Course Structure (40 Days)
 
@@ -133,14 +142,58 @@ A focused Modern Standard Arabic learning platform designed to take learners fro
 
 ## Development Setup
 
-### Requirements
+### Flutter Application Setup
+
+#### Requirements
+- Flutter SDK 3.0.0 or higher
+- Dart SDK 3.0.0 or higher
+- Android Studio / Xcode (for mobile deployment)
+- An emulator or physical device
+
+#### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/dbsectrainer/Arabic-Pathways.git
+   cd Arabic-Pathways
+   ```
+
+2. Install Flutter dependencies:
+   ```bash
+   flutter pub get
+   ```
+
+3. Run the app:
+   ```bash
+   # On a connected device or emulator
+   flutter run
+
+   # For specific platforms
+   flutter run -d android
+   flutter run -d ios
+   ```
+
+#### Building for Production
+```bash
+# Android APK
+flutter build apk
+
+# Android App Bundle
+flutter build appbundle
+
+# iOS
+flutter build ios
+```
+
+### Content Generation (Python)
+
+#### Requirements
 - Python 3.12+
 - Required Python packages:
   ```bash
   pip install gtts edge-tts pandas
   ```
 
-### Generate Lessons
+#### Generate Lessons
 ```bash
 # Generate content for days 1-40
 python arabic_phrases_days_01_07.py
@@ -153,36 +206,36 @@ python arabic_phrases_days_31_40.py
 python arabic_phrases_supplementary.py
 ```
 
-### Run the Site
+### Legacy Web Version
 Open `index.html` in any modern browser—no server setup required.
 
 ## Usage Guide
-1. Launch the dashboard and select your current day
-2. Listen to English explanations and native Arabic pronunciations
-3. Read along with transliteration and Arabic script
-4. Complete interactive exercises and script tracing drills
-5. Watch YouTube demonstrations for cultural and pronunciation context
-6. Earn daily badges and track your fluency progress
-
-## Storage
-Uses localStorage to save:
-- Completed lessons and last visited day
-- Audio playback preferences (e.g., speed, loop)
-- Custom notes and bookmarks
+1. Launch the app and view the dashboard with all 40 days
+2. Select any day to start learning
+3. Switch between Arabic, transliteration, and English views
+4. Listen to native Arabic pronunciation and English explanations
+5. Watch embedded YouTube videos for visual learning
+6. Mark lessons complete to track your progress
+7. Access supplementary content for additional practice
 
 ## Features
-- 40 days of Arabic phrases with audio and transliteration
-- Supplementary materials
-- Video and audio search
 
-## Getting Started
-1. Clone the repo
-2. Install requirements: `pip install -r requirements.txt`
-3. Run scripts as needed
+### Mobile App Features
+- **Offline Support**: All lessons and audio work without internet
+- **Progress Tracking**: Track completed lessons with persistent storage
+- **Trilingual Display**: Toggle between Arabic, transliteration, and English
+- **Audio Playback**: Built-in audio player for pronunciation practice
+- **Video Integration**: Embedded YouTube videos for each lesson
+- **Responsive Design**: Works on phones and tablets
+- **RTL Support**: Proper right-to-left text rendering for Arabic
 
 ## Running Tests
 ```bash
+# Python tests
 pytest
+
+# Flutter tests
+flutter test
 ```
 
 ## Contributing
