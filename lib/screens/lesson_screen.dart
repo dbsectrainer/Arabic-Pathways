@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:provider/provider.dart';
 import '../models/lesson_day.dart';
 import '../services/content_service.dart';
 import '../services/progress_service.dart';
+import '../services/gamification_service.dart';
 import '../utils/app_theme.dart';
 
 class LessonScreen extends StatefulWidget {
@@ -27,6 +29,8 @@ class _LessonScreenState extends State<LessonScreen> {
   bool _isPlayingArabic = false;
   bool _isPlayingEnglish = false;
   YoutubePlayerController? _videoController;
+  double _playbackSpeed = 1.0;
+  bool _repeatMode = false;
 
   @override
   void initState() {
@@ -58,18 +62,90 @@ class _LessonScreenState extends State<LessonScreen> {
   Future<void> _toggleCompletion() async {
     if (_isCompleted) {
       await _progressService.markDayIncomplete(widget.dayNumber);
+      setState(() {
+        _isCompleted = false;
+      });
     } else {
       await _progressService.markDayComplete(widget.dayNumber);
+
+      // Update gamification stats and check for achievements
+      final gamificationService =
+          Provider.of<GamificationService>(context, listen: false);
+      final newAchievements =
+          await gamificationService.recordDayCompletion(widget.dayNumber);
+
+      setState(() {
+        _isCompleted = true;
+      });
+
+      // Show achievement dialog if any were unlocked
+      if (newAchievements.isNotEmpty && mounted) {
+        _showAchievementDialog(newAchievements);
+      }
     }
-    setState(() {
-      _isCompleted = !_isCompleted;
-    });
+  }
+
+  void _showAchievementDialog(List<dynamic> achievements) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Row(
+          children: [
+            Icon(Icons.emoji_events, color: AppTheme.orangeColor, size: 32),
+            SizedBox(width: 12),
+            Text('Achievement Unlocked!'),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: achievements.map((achievement) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Row(
+                children: [
+                  Icon(achievement.icon, color: achievement.color, size: 24),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          achievement.title,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          achievement.description,
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }).toList(),
+        ),
+        actions: [
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Awesome!'),
+          ),
+        ],
+      ),
+    );
   }
 
   Future<void> _playAudio(String audioPath, bool isArabic) async {
     try {
       await _audioPlayer.stop();
+      await _audioPlayer.setPlaybackRate(_playbackSpeed);
       await _audioPlayer.play(AssetSource(audioPath));
+
+      // Record audio play in gamification
+      final gamificationService =
+          Provider.of<GamificationService>(context, listen: false);
+      await gamificationService.recordAudioPlay();
+
       setState(() {
         if (isArabic) {
           _isPlayingArabic = true;
@@ -81,16 +157,31 @@ class _LessonScreenState extends State<LessonScreen> {
       });
 
       _audioPlayer.onPlayerComplete.listen((_) {
-        setState(() {
-          _isPlayingArabic = false;
-          _isPlayingEnglish = false;
-        });
+        if (_repeatMode && mounted) {
+          // Replay the audio if repeat mode is on
+          _audioPlayer.play(AssetSource(audioPath));
+        } else {
+          setState(() {
+            _isPlayingArabic = false;
+            _isPlayingEnglish = false;
+          });
+        }
       });
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error playing audio: $e')),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error playing audio: $e')),
+        );
+      }
     }
+  }
+
+  Future<void> _stopAudio() async {
+    await _audioPlayer.stop();
+    setState(() {
+      _isPlayingArabic = false;
+      _isPlayingEnglish = false;
+    });
   }
 
   @override
@@ -251,32 +342,119 @@ class _LessonScreenState extends State<LessonScreen> {
   Widget _buildAudioControls(LessonDay lesson) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
+      child: Column(
         children: [
-          Expanded(
-            child: ElevatedButton.icon(
-              onPressed: () => _playAudio(lesson.arabicAudioPath, true),
-              icon: Icon(_isPlayingArabic ? Icons.stop : Icons.play_arrow),
-              label: Text(_isPlayingArabic ? 'Stop Arabic' : 'Play Arabic'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppTheme.primaryColor,
-                padding: const EdgeInsets.symmetric(vertical: 16),
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton.icon(
+                  onPressed: _isPlayingArabic
+                      ? _stopAudio
+                      : () => _playAudio(lesson.arabicAudioPath, true),
+                  icon: Icon(_isPlayingArabic ? Icons.stop : Icons.play_arrow),
+                  label: Text(_isPlayingArabic ? 'Stop Arabic' : 'Play Arabic'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppTheme.primaryColor,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                  ),
+                ),
               ),
-            ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: ElevatedButton.icon(
+                  onPressed: _isPlayingEnglish
+                      ? _stopAudio
+                      : () => _playAudio(lesson.englishAudioPath, false),
+                  icon: Icon(_isPlayingEnglish ? Icons.stop : Icons.play_arrow),
+                  label:
+                      Text(_isPlayingEnglish ? 'Stop English' : 'Play English'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppTheme.secondaryColor,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                  ),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: ElevatedButton.icon(
-              onPressed: () => _playAudio(lesson.englishAudioPath, false),
-              icon: Icon(_isPlayingEnglish ? Icons.stop : Icons.play_arrow),
-              label: Text(_isPlayingEnglish ? 'Stop English' : 'Play English'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppTheme.secondaryColor,
-                padding: const EdgeInsets.symmetric(vertical: 16),
+          const SizedBox(height: 12),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Playback Speed',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      Row(
+                        children: [
+                          _buildSpeedButton(0.75),
+                          const SizedBox(width: 8),
+                          _buildSpeedButton(1.0),
+                          const SizedBox(width: 8),
+                          _buildSpeedButton(1.25),
+                          const SizedBox(width: 8),
+                          _buildSpeedButton(1.5),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Repeat Mode',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      Switch(
+                        value: _repeatMode,
+                        onChanged: (value) {
+                          setState(() {
+                            _repeatMode = value;
+                          });
+                        },
+                        activeColor: AppTheme.primaryColor,
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildSpeedButton(double speed) {
+    final isSelected = _playbackSpeed == speed;
+    return InkWell(
+      onTap: () {
+        setState(() {
+          _playbackSpeed = speed;
+        });
+        if (_isPlayingArabic || _isPlayingEnglish) {
+          _audioPlayer.setPlaybackRate(speed);
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(
+          color: isSelected ? AppTheme.primaryColor : Colors.grey[200],
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Text(
+          '${speed}x',
+          style: TextStyle(
+            color: isSelected ? Colors.white : Colors.black87,
+            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            fontSize: 12,
+          ),
+        ),
       ),
     );
   }

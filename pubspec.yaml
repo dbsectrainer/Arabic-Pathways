@@ -34,6 +34,24 @@ dependencies:
   # Path Provider (for file access)
   path_provider: ^2.1.1
 
+  # Animations
+  flutter_animate: ^4.5.0
+
+  # Badges and Icons
+  badges: ^3.1.2
+
+  # Charts for progress visualization
+  fl_chart: ^0.66.2
+
+  # Smooth page indicators
+  smooth_page_indicator: ^1.1.0
+
+  # Intl for date formatting
+  intl: ^0.19.0
+
+  # Icons
+  font_awesome_flutter: ^10.7.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
